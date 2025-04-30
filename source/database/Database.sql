@@ -1,88 +1,88 @@
+-- Bảng người dùng
 CREATE TABLE users (
-    user_id VARCHAR(12) PRIMARY KEY,
-    user_fullname VARCHAR(255) NOT NULL,
-    user_email VARCHAR(255) UNIQUE NOT NULL,
-    user_phonenumber VARCHAR(20) UNIQUE NOT NULL,
-    user_address TEXT,
-    user_role ENUM('Customer', 'BankOfficer') NOT NULL,
-    user_password VARCHAR(255) NOT NULL,
-    user_bio BLOB,
-    IssuedDate DATE NOT NULL,
-    ExpirationDate DATE,
-    IssuedPlace VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                       user_id VARCHAR(36) PRIMARY KEY,
+                       user_full_name VARCHAR(255) NOT NULL,
+                       user_email VARCHAR(255) UNIQUE,
+                       user_password TEXT NOT NULL,
+                       user_phone_number VARCHAR(20) UNIQUE NOT NULL,
+                       user_role VARCHAR(255) NOT NULL DEFAULT 'customer',
+--                            ENUM('customer', 'officer')
+                       user_picture TEXT,
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE checking (
-    checking_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id VARCHAR(12) NOT NULL,
-    checking_balance DECIMAL(15,2) DEFAULT 0.00,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+-- Bảng eKYC
+CREATE TABLE ekyc (
+                      ekyc_id VARCHAR(36) PRIMARY KEY,
+                      user_id VARCHAR(36),
+                      ekyc_image_url TEXT,
+                      ekyc_verified BOOLEAN DEFAULT FALSE,
+                      ekyc_verified_at TIMESTAMP NULL,
+                      FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE saving (
-    saving_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id VARCHAR(12) NOT NULL,
-    saving_balance DECIMAL(15,2) DEFAULT 0.00,
-    saving_interest_rate DECIMAL(5,2) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+-- Bảng tài khoản
+CREATE TABLE accounts (
+                          account_id VARCHAR(36) PRIMARY KEY,
+                          user_id VARCHAR(36),
+                          account_type VARCHAR(255) NOT NULL,
+--                               ENUM('checking', 'saving', 'mortgage')
+                          account_number VARCHAR(20) UNIQUE NOT NULL,
+                          account_balance DECIMAL(18,2) DEFAULT 0,
+                          account_interest_rate DECIMAL(5,2),
+                          account_monthly_payment DECIMAL(18,2),
+                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                          FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE mortgage (
-    mortgage_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id VARCHAR(12) NOT NULL,
-    mortgage_loan_amount DECIMAL(15,2) NOT NULL,
-    mortgage_balance DECIMAL(15,2) NOT NULL,
-    mortgage_monthly_payment DECIMAL(15,2) NOT NULL,
-    mortgage_loan_term INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+-- Bảng giao dịch
+CREATE TABLE transactions (
+                              transaction_id VARCHAR(36) PRIMARY KEY,
+                              from_account_id VARCHAR(36),
+                              to_account_id VARCHAR(36),
+                              to_bank_name VARCHAR(255),
+                              transaction_amount DECIMAL(18,2) NOT NULL,
+                              transaction_type VARCHAR(255) NOT NULL,
+--                                   ENUM('deposit', 'withdraw', 'transfer', 'bill_payment', 'phone_topup', 'ticket_purchase') NOT NULL,
+                              transaction_status VARCHAR(255) NOT NULL DEFAULT 'pending',
+--                                   ENUM('pending', 'success', 'failed')
+                              otp_verified BOOLEAN DEFAULT FALSE,
+                              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                              FOREIGN KEY (from_account_id) REFERENCES accounts(account_id),
+                              FOREIGN KEY (to_account_id) REFERENCES accounts(account_id)
 );
 
-CREATE TABLE mortgage_detail (
-    mortgage_detail_id INT PRIMARY KEY AUTO_INCREMENT,
-    mortgage_id INT NOT NULL,
-    mortgage_detail_due_date DATE NOT NULL,
-    mortgage_detail_amount DECIMAL(15,2) NOT NULL,
-    mortgage_detail_status ENUM('Pending', 'Paid', 'Overdue') DEFAULT 'Pending',
-    mortgage_detail_payment_date TIMESTAMP NULL,
-    FOREIGN KEY (mortgage_id) REFERENCES mortgage(mortgage_id) ON DELETE CASCADE
+-- Bảng hóa đơn / tiện ích
+CREATE TABLE bills (
+                       bill_id VARCHAR(36) PRIMARY KEY,
+                       user_id VARCHAR(36),
+                       bill_type VARCHAR(255) NOT NULL,
+--                            ENUM('electricity', 'water', 'phone', 'movie', 'flight', 'hotel', 'ecommerce') NOT NULL,
+                       provider_name VARCHAR(255),
+                       bill_amount DECIMAL(18,2) NOT NULL,
+                       bill_due_date TIMESTAMP,
+                       paid BOOLEAN DEFAULT FALSE,
+                       transaction_id VARCHAR(36),
+                       FOREIGN KEY (user_id) REFERENCES users(user_id),
+                       FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id)
 );
 
-CREATE TABLE Transactions (
-    TransactionID INT PRIMARY KEY AUTO_INCREMENT,
-    AccountID INT NOT NULL,
-    TransactionType ENUM('Deposit', 'Withdrawal', 'Transfer', 'Payment') NOT NULL,
-    Amount DECIMAL(15,2) NOT NULL,
-    Status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
-    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Bảng chi nhánh ngân hàng
+CREATE TABLE branches (
+                          branch_id VARCHAR(36) PRIMARY KEY,
+                          branch_name VARCHAR(255) NOT NULL,
+                          branch_address TEXT,
+                          branch_latitude DOUBLE,
+                          branch_longitude DOUBLE
 );
 
-CREATE TABLE TwoFactorAuth (
-    AuthID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID VARCHAR(12) NOT NULL,
-    OTPCode VARCHAR(6) NOT NULL,
-    Expiration TIMESTAMP NOT NULL,
-    Status ENUM('Unused', 'Used') DEFAULT 'Unused',
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
-);
-
-CREATE TABLE Payments (
-    PaymentID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID VARCHAR(12) NOT NULL,
-    PaymentType ENUM('Electricity', 'Water', 'PhoneTopUp', 'FlightTicket', 'MovieTicket', 'HotelBooking', 'Ecommerce') NOT NULL,
-    Amount DECIMAL(15,2) NOT NULL,
-    Status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
-    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
-);
-
-CREATE TABLE BankBranches (
-    BranchID INT PRIMARY KEY AUTO_INCREMENT,
-    BranchName VARCHAR(255) NOT NULL,
-    Address TEXT NOT NULL,
-    Latitude DECIMAL(10,8),
-    Longitude DECIMAL(11,8)
+-- Bảng mã OTP
+CREATE TABLE otp_codes (
+                           otp_id VARCHAR(36) PRIMARY KEY,
+                           user_id VARCHAR(36),
+                           otp_code VARCHAR(10) NOT NULL,
+                           otp_is_used BOOLEAN DEFAULT FALSE,
+                           expires_at TIMESTAMP NOT NULL,
+                           FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

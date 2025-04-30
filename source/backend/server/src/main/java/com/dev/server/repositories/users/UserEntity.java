@@ -1,0 +1,49 @@
+package com.dev.server.repositories.users;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDateTime;
+
+import static lombok.AccessLevel.PRIVATE;
+
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = PRIVATE)
+public class UserEntity {
+    @Id
+    @Column(name = "user_id")
+    String idUser;
+
+    @Column(name = "user_full_name")
+    String userFullName;
+
+    @Column(name = "user_email", unique = true)
+    String userEmail;
+
+    @Column(name = "user_password", nullable = false)
+    String userPassword;
+
+    @Column(name = "user_phone_number", unique = true, nullable = false, length = 20)
+    String userPhoneNumber;
+
+    @Column(name = "user_role")
+    String userRole;
+
+    @Column(name = "user_picture")
+    String userPicture;
+
+    @Column(name = "created_at")
+    LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    LocalDateTime updatedAt;
+
+}

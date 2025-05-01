@@ -16,7 +16,8 @@ public enum ErrorCode {
     SERVER_ERROR(500, "Lỗi máy chủ", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHENTICATED(401, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(403, "Unauthorized", HttpStatus.FORBIDDEN),
-    INVALID_TOKEN(401, "Token không hợp lệ", HttpStatus.UNAUTHORIZED);
+    INVALID_TOKEN(401, "Token không hợp lệ", HttpStatus.UNAUTHORIZED),
+    TRANSACTION_NOT_FOUND(404, "Transaction không hợp lệ", HttpStatus.NOT_FOUND);
 
 
     final int code;

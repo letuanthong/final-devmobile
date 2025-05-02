@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Viền ngoài -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp"/>
+            <stroke android:width="2dp" android:color="#2196F3"/>
+            <solid android:color="#41b3d5"/> <!-- Màu nền fallback -->
+        </shape>
+    </item>
+
+    <!-- Gradient phủ lên trên -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:startColor="#67E6DC"
+                android:endColor="#015CDA"
+                android:type="linear"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+</layer-list>

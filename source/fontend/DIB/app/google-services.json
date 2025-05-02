@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "865556651061",
+    "project_id": "dib-digital-internet-banking",
+    "storage_bucket": "dib-digital-internet-banking.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865556651061:android:a89020a30bb1dc0f25a57c",
+        "android_client_info": {
+          "package_name": "com.example.dib"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCavHMpI4-Hk113yEtHZvQRxXnqnfJj02M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/baseline_account_box_24"
+        android:title="Tài khoản" />
+    <item
+        android:id="@+id/nav_transaction"
+        android:icon="@drawable/sharp_assured_workload_24"
+        android:title="Giao dịch" />
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/outline_build_24"
+        android:title="Cài đặt" />
+</menu>

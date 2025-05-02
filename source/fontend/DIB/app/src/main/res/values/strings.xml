@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DIB</string>
+    <string name="currency_format">%s đ</string>
+</resources>

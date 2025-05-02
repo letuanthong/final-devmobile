@@ -1,4 +1,4 @@
-package com.example.dib;
+package com.example.dib.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,10 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class registration extends AppCompatActivity {
+import com.example.dib.Information;
+import com.example.dib.R;
+
+public class RegistrationActivity extends AppCompatActivity {
 
 
 
@@ -24,7 +27,7 @@ public class registration extends AppCompatActivity {
         btnback.setOnClickListener(v -> finish());
 
         btnContinue.setOnClickListener(v -> {
-            Intent intent = new Intent(registration.this, Information.class);
+            Intent intent = new Intent(RegistrationActivity.this, Information.class);
             startActivity(intent);
         });
     }

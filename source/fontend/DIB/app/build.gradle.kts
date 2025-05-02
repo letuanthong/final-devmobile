@@ -65,6 +65,9 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.2.1")
     implementation ("com.google.firebase:firebase-firestore:24.7.1")
 
-
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok.v11830)
 
 }

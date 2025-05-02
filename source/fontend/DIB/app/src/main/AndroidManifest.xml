@@ -16,18 +16,18 @@
 
 <!--        Đưa activity vào bên trong application &ndash;&gt;-->
 
-        <activity android:name=".main"
+        <activity android:name=".activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".registration"/>
+        <activity android:name=".activity.RegistrationActivity"/>
         <activity android:name=".Information"/>
 
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:exported="true"/>
 
 

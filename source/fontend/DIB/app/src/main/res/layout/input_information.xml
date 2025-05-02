@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".main">
+    tools:context=".activity.LoginActivity">
 
     <!-- AppBar ĐƯA RA NGOÀI, TRÁNH BỊ CĂN GIỮA -->
     <androidx.appcompat.widget.Toolbar

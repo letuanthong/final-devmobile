@@ -1,8 +1,13 @@
-package com.example.dib;
+package com.example.dib.activity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.dib.HomeFragment;
+import com.example.dib.R;
+import com.example.dib.SettingsFragment;
+import com.example.dib.TransactionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

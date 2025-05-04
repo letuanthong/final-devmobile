@@ -2,6 +2,7 @@ package com.example.dib.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         && response.body() != null
                         && response.body().getCode() == 200){
                     User user = response.body().getData();
+                    Log.e("Login", "onResponse: " + user.toString());
                     if (user != null && user.getIdUser() != null){
                         navigateToMainActivity(user.getIdUser());
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
@@ -74,12 +76,14 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Có lỗi xảy ra.", Toast.LENGTH_SHORT).show();
                     }
                 }else {
+                    Log.e("Login", "onResponse: " + response.message());
                     Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ValueResponse<User>> call, Throwable t) {
+                Log.e("Login", "onFailure: " + t.getMessage(), t);
                 Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
             }
         });

@@ -21,6 +21,6 @@ public class User {
     String userPhoneNumber;
     String userRole;
     String userPicture;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+    String createdAt;
+    String updatedAt;
 }

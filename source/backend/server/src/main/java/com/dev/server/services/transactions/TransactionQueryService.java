@@ -30,7 +30,7 @@ public class TransactionQueryService {
                 .orElseThrow(() -> new AppException(ErrorCode.TRANSACTION_NOT_FOUND));
     }
 
-    public List<Transaction> findAll() {
-        return null;
+    public List<Transaction> findAllByIdAccount(String idAccount) {
+        return transactionMapper.toDtos(transactionRepository.findAll(idAccount));
     }
 }

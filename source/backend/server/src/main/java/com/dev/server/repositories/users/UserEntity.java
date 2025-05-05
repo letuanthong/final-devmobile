@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -24,6 +25,33 @@ public class UserEntity {
 
     @Column(name = "user_full_name")
     String userFullName;
+
+    @Column(name = "user_gender")
+    String userGender;
+
+    @Column(name = "user_date_of_birth")
+    Date userDateOfBirth;
+
+    @Column(name = "user_identity_number")
+    String userIdentityNumber;
+
+    @Column(name = "user_identity_issued_date")
+    Date userIdentityIssuedDate;
+
+    @Column(name = "user_identity_expires_date")
+    Date userIdentityExpiresDate;
+
+    @Column(name = "user_identity_issued_place")
+    String userIdentityIssuedPlace;
+
+    @Column(name = "user_identity_expires_place")
+    String userIdentityExpiresPlace;
+
+    @Column(name = "user_place_of_origin")
+    String userPlaceOfOrigin;
+
+    @Column(name = "user_place_of_residence")
+    String userPlaceOfResidence;
 
     @Column(name = "user_email", unique = true)
     String userEmail;

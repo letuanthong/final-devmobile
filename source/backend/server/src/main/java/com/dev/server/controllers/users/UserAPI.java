@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface UserAPI {
 
     @GetMapping
-    ValueResponse<UserResponse> findById(@PathVariable UserId idUser);
+    ValueResponse<UserResponse> findById(@PathVariable String idUser);
 }

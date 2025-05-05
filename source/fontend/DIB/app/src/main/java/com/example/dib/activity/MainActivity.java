@@ -1,16 +1,27 @@
 package com.example.dib.activity;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.dib.API.home.HomeService;
 import com.example.dib.HomeFragment;
 import com.example.dib.R;
-import com.example.dib.SettingsFragment;
 import com.example.dib.TransactionFragment;
+import com.example.dib.config.APIClient;
+import com.example.dib.config.ListResponse;
+import com.example.dib.model.Account;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +31,29 @@ public class MainActivity extends AppCompatActivity {
 
         // Lấy USER_ID từ Intent
         String userId = getIntent().getStringExtra("USER_ID");
+
+        // Get Account tu API
+        HomeService homeService = APIClient.getRetrofitInstance().create(HomeService.class);
+        homeService.getAccount(userId).enqueue(new retrofit2.Callback<ListResponse<Account>>() {
+            @Override
+            public void onResponse(Call<ListResponse<Account>> call, Response<ListResponse<Account>> response) {
+                if (response.isSuccessful()
+                        && response.body() != null
+                        && response.body().getCode() == 200) {
+                    // Xử lý dữ liệu tài khoản ở đây
+                    List<Account> accounts = response.body().getData();
+                    Log.e("HOME", "Account: " + accounts.toString());
+                } else {
+                    Log.e("HOME", "Error: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse<Account>> call, Throwable t) {
+                // Xử lý lỗi kết nối
+                Log.e("HOME", "Failure: " + t.getMessage());
+            }
+        });
 
         // Load Fragment mặc định và truyền USER_ID
         if (savedInstanceState == null) {
@@ -42,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.nav_transaction) {
                 selectedFragment = new TransactionFragment();
             } else if (item.getItemId() == R.id.nav_setting) {
-                selectedFragment = new SettingsFragment();
+                selectedFragment = new SettingsFragmentActivity();
             }
 
             if (selectedFragment != null) {

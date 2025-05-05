@@ -23,8 +23,8 @@ public class UserQueryService {
     @NonNull UserRepository userRepository;
     @NonNull UserMapper userMapper;
 
-    public User findById(UserId idUser) {
-        return userRepository.findById(idUser.value())
+    public User findById(String idUser) {
+        return userRepository.findById(idUser)
                 .map(userMapper::toDto)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
     }

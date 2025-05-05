@@ -35,7 +35,7 @@ public class UserUseCaseService {
     }
 
     @Transactional
-    public User findById(UserId idUser) {
+    public User findById(String idUser) {
         return userQueryService.findById(idUser);
     }
 

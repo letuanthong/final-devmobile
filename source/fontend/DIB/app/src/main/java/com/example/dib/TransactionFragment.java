@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dib.payment.BillElectric;
-import com.example.dib.payment.BillWater;
-import com.example.dib.payment.BookPlane;
-import com.example.dib.payment.Transfer;
+import com.example.dib.activity.payment.BillElectric;
+import com.example.dib.activity.payment.BillWater;
+import com.example.dib.activity.payment.BookPlane;
+import com.example.dib.activity.payment.Transfer;
 
 import java.util.ArrayList;
 import java.util.List;

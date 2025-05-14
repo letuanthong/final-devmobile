@@ -32,7 +32,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.icon);
-            title = itemView.findViewById(R.id.tvTitle);
+            title = itemView.findViewById(R.id.title);
         }
 
         public void bind(final TransactionItem item) {

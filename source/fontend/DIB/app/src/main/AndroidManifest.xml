@@ -30,6 +30,13 @@
 
         <activity android:name=".activity.MainActivity"
             android:exported="true"/>
+        <activity android:name="TransactionFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".activity.payment.Transfer" />
+        <activity android:name=".activity.payment.BillWater" />
+        <activity android:name=".activity.payment.BillElectric" />
+        <activity android:name=".activity.payment.BookPlane" />
 
 
         

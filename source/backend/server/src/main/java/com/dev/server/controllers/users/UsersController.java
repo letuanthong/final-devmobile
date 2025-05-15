@@ -1,8 +1,11 @@
 package com.dev.server.controllers.users;
 
 import com.dev.server.controllers.BaseAPI.ListResponse;
+import com.dev.server.controllers.users.model.UserModelMapper;
 import com.dev.server.controllers.users.model.UserResponse;
+import com.dev.server.services.users.UserUseCaseService;
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UsersController implements UsersAPI {
-
+    @NonNull UserUseCaseService userUseCaseService;
+    @NonNull UserModelMapper userModelMapper;
 
     @Override
     public ListResponse<UserResponse> findAll() {
-        // Implementation of the method to find all users
-        return null; // Replace with actual implementation
+        return ListResponse.<UserResponse>builder()
+                .code(200)
+                .message("Get all users successfully")
+                .data(userModelMapper.toResponses(userUseCaseService.findAll()))
+                .build();
     }
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activity.admin.UserDetailActivity">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="User Detail" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize">
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/titleUserInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="16dp"
+                    android:text="User Information"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- ID -->
+                <TextView
+                    android:id="@+id/textViewId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="12dp"
+                    android:text="ID:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleUserInfo" />
+
+                <TextView
+                    android:id="@+id/userDetailId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="User ID"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewId"
+                    app:layout_constraintStart_toEndOf="@id/textViewId" />
+
+                <!-- Full Name -->
+                <TextView
+                    android:id="@+id/textViewFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Full Name:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/textViewId"
+                    app:layout_constraintTop_toBottomOf="@id/textViewId" />
+
+                <TextView
+                    android:id="@+id/userDetailFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="User Full Name"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewFullName"
+                    app:layout_constraintStart_toEndOf="@id/textViewFullName" />
+
+                <!-- Gender -->
+                <TextView
+                    android:id="@+id/textViewGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Gender:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/textViewFullName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewFullName" />
+
+                <TextView
+                    android:id="@+id/userDetailGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="User Gender"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewGender"
+                    app:layout_constraintStart_toEndOf="@id/textViewGender" />
+
+                <!-- Date of Birth -->
+                <TextView
+                    android:id="@+id/textViewDateOfBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Date of Birth:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/textViewGender"
+                    app:layout_constraintTop_toBottomOf="@id/textViewGender" />
+
+                <TextView
+                    android:id="@+id/userDetailDateOfBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="User Date of Birth"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewDateOfBirth"
+                    app:layout_constraintStart_toEndOf="@id/textViewDateOfBirth" />
+
+                <!-- Add similar TextView pairs for the remaining fields -->
+                <!-- Identity Number -->
+                <TextView
+                    android:id="@+id/textViewIdentityNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Identity Number:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/textViewDateOfBirth"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDateOfBirth" />
+
+                <TextView
+                    android:id="@+id/userDetailIdentityNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="User Identity Number"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewIdentityNumber"
+                    app:layout_constraintStart_toEndOf="@id/textViewIdentityNumber" />
+
+                <!-- Add other fields like userEmail, userPhoneNumber, etc., following the same pattern -->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>

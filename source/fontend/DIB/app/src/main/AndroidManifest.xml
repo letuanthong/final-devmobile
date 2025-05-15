@@ -38,6 +38,8 @@
         <activity android:name=".activity.transaction.payment.BillElectric" />
         <activity android:name=".activity.transaction.payment.BookPlane" />
         <activity android:name=".activity.transaction.payment.TransferOtpActivity"/>
+        <activity android:name=".activity.admin.ViewUserActivity"/>
+        <activity android:name=".activity.admin.UpdateUserActivity"/>
 
 
         

@@ -29,14 +29,14 @@ public class UserCommandService {
         userRepository.save(userEntity);
     }
 
-    public void update(UserId idUser, User user) {
-        UserEntity entity = userRepository.findById(idUser.value()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+    public void update(String idUser, User user) {
+        UserEntity entity = userRepository.findById(idUser).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         entity = userMapper.updateExist(user, entity);
         userRepository.save(entity);
     }
 
-    public void delete(UserId idUser) {
-        UserEntity entity = userRepository.findById(idUser.value()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+    public void delete(String idUser) {
+        UserEntity entity = userRepository.findById(idUser).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(entity);
     }
 }

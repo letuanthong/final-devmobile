@@ -12,9 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dib.API.login.LoginService;
 import com.example.dib.API.login.network.LoginRequest;
 import com.example.dib.R;
+import com.example.dib.activity.admin.ViewUserActivity;
 import com.example.dib.config.APIClient;
 import com.example.dib.config.ValueResponse;
 import com.example.dib.model.User;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,9 +72,14 @@ public class LoginActivity extends AppCompatActivity {
                         && response.body().getCode() == 200){
                     User user = response.body().getData();
                     Log.e("Login", "onResponse: " + user.toString());
-                    if (user != null && user.getIdUser() != null){
+                    if (user.getIdUser() != null){
+                        if (Objects.equals(user.getUserRole(), "officer")){
+                            navigateToAdminActivity();
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        }else {
                         navigateToMainActivity(user.getIdUser());
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        }
                     }else {
                         Toast.makeText(LoginActivity.this, "Có lỗi xảy ra.", Toast.LENGTH_SHORT).show();
                     }
@@ -95,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToMainActivity(String userId) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("USER_ID", userId);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToAdminActivity() {
+        Intent intent = new Intent(this, ViewUserActivity.class);
         startActivity(intent);
         finish();
     }

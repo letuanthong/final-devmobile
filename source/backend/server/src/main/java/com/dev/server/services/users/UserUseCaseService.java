@@ -25,12 +25,12 @@ public class UserUseCaseService {
     }
 
     @Transactional
-    public void update(UserId idUser, User user) {
+    public void update(String idUser, User user) {
         userCommandService.update(idUser, user);
     }
 
     @Transactional
-    public void delete(UserId idUser) {
+    public void delete(String idUser) {
         userCommandService.delete(idUser);
     }
 

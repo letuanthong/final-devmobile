@@ -6,11 +6,9 @@ import com.twilio.type.PhoneNumber;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +20,14 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OtpUseCaseService {
+    @NonFinal
+    @Value("${twilio.account-sid}")
+    private String accountSid;
+
+    @NonFinal
+    @Value("${twilio.auth-token}")
+    private String authToken;
+
     @NonNull OtpCommandService otpCommandService;
     @NonNull OtpQueryService otpQueryService;
 
@@ -35,32 +41,13 @@ public class OtpUseCaseService {
     }
 
     public void sendOtp(String userPhoneNumber) {
-        // Generate OTP
-        String otp = generateOtp(userPhoneNumber);
-        // Chuẩn hóa số điện thoại
         if (!userPhoneNumber.startsWith("+")) {
-            userPhoneNumber = "84" + userPhoneNumber.substring(1); // Thêm mã quốc gia Việt Nam
+            userPhoneNumber = "+84" + userPhoneNumber.substring(1); // Thêm mã quốc gia Việt Nam
         }
-
-        // API URL with query parameters
-        String url = "https://api.1s2u.io/bulksms?username=letletudi4vv2025&password=sVX5HL6U" +
-                "&mno=" + userPhoneNumber +
-                "&sid=thong&msg=Your OTP is: " + otp +
-                "&mt=0";
-
-        // RestTemplate setup
-        RestTemplate restTemplate = new RestTemplate();
-
-        // Send GET request
-        try {
-            String response = restTemplate.getForObject(url, String.class);
-            System.out.println("OTP sent successfully to " + userPhoneNumber + ": " + response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error while sending OTP: " + e.getMessage());
-        }
+        String otp = "Your OTP: "+ generateOtp(userPhoneNumber);
+        Twilio.init(accountSid,authToken);
+        Message.creator(new PhoneNumber(userPhoneNumber), new PhoneNumber("+19785915496"),otp).create();
     }
-
 
     public boolean checkOtp(String userPhoneNumber, String otp) {
         if (otpMap.containsKey(userPhoneNumber)) {

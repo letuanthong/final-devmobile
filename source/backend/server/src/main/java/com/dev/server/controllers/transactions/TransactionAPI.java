@@ -1,19 +1,19 @@
 package com.dev.server.controllers.transactions;
 
 import com.dev.server.controllers.BaseAPI.ListResponse;
+import com.dev.server.controllers.BaseAPI.ValueResponse;
 import com.dev.server.controllers.transactions.model.TransactionResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.dev.server.controllers.transactions.model.TransactionTransferRequest;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("app/transactions/{idAccount}")
+@RequestMapping("app/transactions")
 public interface TransactionAPI {
-     @GetMapping
+     @GetMapping("/{idAccount}")
      ListResponse<TransactionResponse> getTransactions(@PathVariable String idAccount);
 
-    // @PostMapping
-    // ValueResponse<TransactionResponse> createTransaction(@PathVariable String idAccount, @RequestBody TransactionRequest transactionRequest);
-    //
+     @PostMapping("/transfer")
+     ValueResponse<TransactionResponse> createTransactionTransfer(@RequestBody TransactionTransferRequest transactionRequest);
+
     // @PutMapping("{idTransaction}")
     // ValueResponse<TransactionResponse> updateTransaction(@PathVariable String idAccount, @PathVariable String idTransaction, @RequestBody TransactionRequest transactionRequest);
     //

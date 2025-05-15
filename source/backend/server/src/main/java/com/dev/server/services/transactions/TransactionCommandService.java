@@ -19,7 +19,7 @@ public class TransactionCommandService {
     @NonNull TransactionMapper transactionMapper;
 
     public void save(Transaction transaction) {
-
+        transactionRepository.save(transactionMapper.toEntity(transaction));
     }
 
     public void update(Transaction transaction) {

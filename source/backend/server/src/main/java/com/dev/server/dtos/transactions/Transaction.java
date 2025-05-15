@@ -1,8 +1,11 @@
 package com.dev.server.dtos.transactions;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
 public record Transaction(
         String idTransaction,
         String fromIdAccount,

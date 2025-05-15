@@ -24,8 +24,8 @@ public class TransactionQueryService {
     @NonNull
     TransactionMapper transactionMapper;
 
-    public Transaction findById(TransactionId idTransaction) {
-        return transactionRepository.findById(idTransaction.value())
+    public Transaction findById(String idTransaction) {
+        return transactionRepository.findById(idTransaction)
                 .map(transactionMapper::toDto)
                 .orElseThrow(() -> new AppException(ErrorCode.TRANSACTION_NOT_FOUND));
     }

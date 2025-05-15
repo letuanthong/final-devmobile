@@ -1,5 +1,6 @@
 package com.example.dib.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dib.API.home.HomeService;
 import com.example.dib.R;
-import com.example.dib.TransactionFragment;
+import com.example.dib.activity.transaction.TransactionFragment;
 import com.example.dib.config.APIClient;
 import com.example.dib.config.ListResponse;
 import com.example.dib.model.Account;
@@ -20,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private Account accountChecking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         && response.body().getCode() == 200) {
                     // Xử lý dữ liệu tài khoản ở đây
                     List<Account> accounts = response.body().getData();
+                    accountChecking = getAccountByType(accounts, "checking");
                     Log.e("HOME", "Account: " + accounts.toString());
                 } else {
                     Log.e("HOME", "Error: " + response.message());
@@ -86,5 +89,19 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    public Account getAccountByType(List<Account> accounts, String accountType) {
+        if (accounts == null || accountType == null) {
+            return null;
+        }
+
+        for (Account account : accounts) {
+            if (accountType.equals(account.getAccountType())) {
+                return account; // Return the first matching account
+            }
+        }
+
+        return null; // Return null if no matching account is found
     }
 }

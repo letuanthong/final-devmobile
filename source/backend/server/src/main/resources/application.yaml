@@ -16,3 +16,7 @@ spring:
         # SQL8 support this
         #        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+
+twilio:
+  account-sid: ACa4b46a78d6230264eb1abafff01ee43f
+  auth-token: d65770c3adee53966534d07752590612

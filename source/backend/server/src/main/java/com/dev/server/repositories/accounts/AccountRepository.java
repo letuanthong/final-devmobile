@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountEntity, String> {
     List<AccountEntity> findByIdUser(String userId);
+
+    AccountEntity findByAccountNumber(String accountNumber);
 }

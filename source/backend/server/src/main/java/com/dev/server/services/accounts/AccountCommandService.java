@@ -1,5 +1,6 @@
 package com.dev.server.services.accounts;
 
+import com.dev.server.repositories.accounts.AccountEntity;
 import com.dev.server.repositories.accounts.AccountRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,4 +14,8 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AccountCommandService {
     @NonNull AccountRepository accountRepository;
+
+    public void updateAccount(AccountEntity account) {
+        accountRepository.save(account);
+    }
 }

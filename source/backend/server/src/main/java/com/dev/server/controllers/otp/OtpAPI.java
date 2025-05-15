@@ -10,4 +10,6 @@ public interface OtpAPI {
     @GetMapping("/getOTP/{userPhoneNumber}")
     ValueResponse<String> getOTP(@PathVariable String userPhoneNumber);
 
+    @GetMapping("/verifyOTP/{userPhoneNumber}/{otp}")
+    ValueResponse<String> verifyOTP(@PathVariable String userPhoneNumber, @PathVariable String otp);
 }

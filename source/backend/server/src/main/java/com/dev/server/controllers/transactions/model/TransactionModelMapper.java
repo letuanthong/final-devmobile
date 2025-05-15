@@ -7,5 +7,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TransactionModelMapper {
+    TransactionResponse toResponse(Transaction transaction);
+
     List<TransactionResponse> toResponses(List<Transaction> transactions);
 }

@@ -17,7 +17,9 @@ public enum ErrorCode {
     UNAUTHENTICATED(401, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(403, "Unauthorized", HttpStatus.FORBIDDEN),
     INVALID_TOKEN(401, "Token không hợp lệ", HttpStatus.UNAUTHORIZED),
-    TRANSACTION_NOT_FOUND(404, "Transaction không hợp lệ", HttpStatus.NOT_FOUND);
+    TRANSACTION_NOT_FOUND(404, "Transaction không hợp lệ", HttpStatus.NOT_FOUND),
+    INSUFFICIENT_BALANCE(400, "Số dư không đủ", HttpStatus.BAD_REQUEST),;
+
 
 
     final int code;

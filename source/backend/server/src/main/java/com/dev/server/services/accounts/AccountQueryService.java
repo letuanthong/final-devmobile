@@ -24,4 +24,8 @@ public class AccountQueryService {
     public List<Account> findByUserId(String userId) {
         return accountMapper.toDtos(accountRepository.findByIdUser(userId));
     }
+
+    public Account findByAccountNumber(String accountNumber) {
+        return accountMapper.toDto(accountRepository.findByAccountNumber(accountNumber));
+    }
 }

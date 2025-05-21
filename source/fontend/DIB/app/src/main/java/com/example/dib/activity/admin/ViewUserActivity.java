@@ -1,6 +1,7 @@
 package com.example.dib.activity.admin;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -114,6 +115,16 @@ public class ViewUserActivity extends AppCompatActivity {
         }
         UserAdapter adapter = new UserAdapter(this, filteredList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_add) {
+            Intent intent = new Intent(this, AddUserActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

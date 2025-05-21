@@ -1,10 +1,12 @@
 package com.example.dib.activity.transaction.payment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,9 +62,9 @@ public class TransferOtpActivity extends AppCompatActivity {
         Log.e("OTP", "userId: " + userId);
 
         //Get OTP
-        //getUserPhoneNumber();
+        getUserPhoneNumber();
 
-        btnVerify.setOnClickListener(v -> handleVerify());
+        btnVerify.setOnClickListener(v -> handleButton());
 
     }
 
@@ -79,7 +81,16 @@ public class TransferOtpActivity extends AppCompatActivity {
             public void onResponse(Call<ValueResponse<Transaction>> call, Response<ValueResponse<Transaction>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.e("Transfer", "Transfer successful: " + response.body().getMessage());
+                    Transaction transaction = response.body().getData();
                     // Handle successful transfer here
+                    Intent intent = new Intent(TransferOtpActivity.this, TransferTransactionActivity.class);
+                    intent.putExtra("AMOUNT", transaction.getTransactionsAmount());
+                    intent.putExtra("CREATE_AT", transaction.getCreatedAt());
+                    intent.putExtra("TRANSACTION_ID", transaction.getIdTransaction());
+                    intent.putExtra("FROM_ACCOUNT", accountNumberFrom);
+                    intent.putExtra("TO_ACCOUNT", toAccount);
+                    intent.putExtra("TO_BANK_NAME", transaction.getToBankName());
+                    startActivity(intent);
                 } else {
                     Log.e("Transfer", "Error transferring money: " + response.message());
                 }
@@ -141,13 +152,13 @@ public class TransferOtpActivity extends AppCompatActivity {
         otpService.verifyOTP(phoneNumber, otp).enqueue(new Callback<ValueResponse<String>>() {
             @Override
             public void onResponse(Call<ValueResponse<String>> call, Response<ValueResponse<String>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().getCode() == 200) {
                     Log.e("OTP", "OTP verified successfully: " + response.body().getMessage());
-                    // Proceed to the next step after successful OTP verification
-                    // Intent intent = new Intent(TransferOtpActivity.this, NextActivity.class);
-                    // startActivity(intent);
+                    // Call handleVerify function here
+                    handleVerify();
                 } else {
                     Log.e("OTP", "Error verifying OTP: " + response.message());
+                    Toast.makeText(TransferOtpActivity.this, "Mã OTP không chính xác", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -157,7 +168,18 @@ public class TransferOtpActivity extends AppCompatActivity {
             }
         });
     }
-    // Handle Transaction
+
+    // Handle Button
+    private void handleButton() {
+        btnVerify.setOnClickListener(v -> {
+            String otp = edOtp.getText().toString();
+            if (otp.isEmpty()) {
+                edOtp.setError("Please enter OTP");
+                return;
+            }
+            verifyOtp(userPhoneNumber.getText().toString(), otp);
+        });
+    }
 
 
 }

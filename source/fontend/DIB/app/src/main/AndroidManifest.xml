@@ -40,6 +40,8 @@
         <activity android:name=".activity.transaction.payment.TransferOtpActivity"/>
         <activity android:name=".activity.admin.ViewUserActivity"/>
         <activity android:name=".activity.admin.UpdateUserActivity"/>
+        <activity android:name=".activity.admin.AddUserActivity"/>
+        <activity android:name=".activity.transaction.payment.TransferTransactionActivity"/>
 
 
         

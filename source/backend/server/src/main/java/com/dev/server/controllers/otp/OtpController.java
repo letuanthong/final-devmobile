@@ -26,6 +26,19 @@ public class OtpController implements OtpAPI{
 
     @Override
     public ValueResponse<String> verifyOTP(String userPhoneNumber, String otp) {
-        return null;
+        if(otpUseCaseService.checkOtp(userPhoneNumber, otp)){
+            return ValueResponse.<String>builder()
+                    .code(200)
+                    .message("Verify OTP successfully")
+                    .data("Verify OTP successfully")
+                    .build();
+        } else {
+            return ValueResponse.<String>builder()
+                    .code(400)
+                    .message("Verify OTP failed")
+                    .data("Verify OTP failed")
+                    .build();
+        }
+
     }
 }

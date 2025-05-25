@@ -12,7 +12,10 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -46,6 +49,21 @@ public class AccountUseCaseService {
         }
         account.setAccountBalance(account.getAccountBalance().subtract(amount));
         accountCommandService.updateAccount(account);
+    }
+
+    public void autoCreateAccount(String idUser) {
+        Random random = new Random();
+        String accountNumber = String.valueOf(1000000000L + (long)(random.nextDouble() * 9000000000L));
+        AccountEntity accountChecking = new AccountEntity();
+        accountChecking.setIdAccount(UUID.randomUUID().toString());
+        accountChecking.setIdUser(idUser);
+        accountChecking.setAccountType("checking");
+        accountChecking.setAccountNumber(accountNumber);
+        accountChecking.setAccountBalance(BigDecimal.valueOf(100000));
+        accountChecking.setAccountInterestRate(null);
+        accountChecking.setAccountMonthlyPayment(null);
+        accountChecking.setCreatedAt(LocalDateTime.now());
+        accountCommandService.updateAccount(accountChecking);
     }
 
 }

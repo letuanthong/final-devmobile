@@ -134,13 +134,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Số điện thoại"
+            android:hint="Mật khẩu"
             android:textColorHint="@color/black"
             android:layout_marginBottom="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edphonenumber"
-                android:inputType="number"
+                android:id="@+id/edpassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edit_text_border"

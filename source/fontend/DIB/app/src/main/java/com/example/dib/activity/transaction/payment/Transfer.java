@@ -57,7 +57,7 @@ public class Transfer extends AppCompatActivity {
         // Danh sách ngân hàng
         String[] bankList = {
                 "Vietcombank", "Techcombank", "MBBank", "Viettinbank",
-                "ACB", "BIDV", "VIB", "TBBank"
+                "ACB", "BIDV", "VIB", "DIB"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bankList);
